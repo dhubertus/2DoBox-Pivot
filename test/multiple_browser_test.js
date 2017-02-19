@@ -27,6 +27,17 @@ prependTest(driver_chr);
 
 searchFilterTest(driver_chr);
 
+deleteFromDOMTest(driver_chr);
+
+upvoteTest(driver_chr);
+
+downvoteTest(driver_chr);
+
+editTitleTest(driver_chr);
+
+editBodyTest(driver_chr);
+
+localStorageTest(driver_chr);
 
 function cardCreationTest(driver) {
   driver.get('https://buji405.github.io/2DoBox-Pivot/');
@@ -115,6 +126,183 @@ function searchFilterTest(driver) {
       }
     });
   });
+}
 
+function deleteFromDOMTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('Remaining card');
+  driver.findElement(By.id('save-button')).click();
+  driver.findElement(By.id('title-input')).sendKeys('Card to be deleted');
+  driver.findElement(By.id('save-button')).click();
+
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('delete-button')).click();
+    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+      if(title === 'Card to be deleted') {
+        console.log('Test 6 failed');
+      } else if (title === 'Remaining card'){
+        console.log('Test 6 passed');
+      }
+    });
+  });
+}
+
+
+function upvoteTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('Best idea yet');
+  driver.findElement(By.id('save-button')).click();
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('current-quality')).getText().then(function(quality){
+      if(quality === 'swill') {
+        console.log('Test 7 Passed')
+      } else {
+        console.log('Test 7 Failed');
+      }
+    })
+    driver.findElement(By.className('upvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality) {
+      if(quality === 'swill') {
+        console.log('Test 8 failed');
+      } else if (quality === 'plausible'){
+        console.log('Test 8 passed');
+      }
+    });
+    driver.findElement(By.className('upvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality){
+      if(quality === 'plausible') {
+        console.log('Test 9 failed');
+      } else if (quality === 'genius') {
+        console.log('Test 9 passed');
+      }
+
+    })
+  });
+}
+
+
+function downvoteTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('Best idea yet');
+  driver.findElement(By.id('save-button')).click();
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('upvote-button')).click();
+    driver.findElement(By.className('upvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality){
+      if(quality === 'genius') {
+        console.log('Test 10 Passed')
+      } else {
+        console.log('Test 10 Failed');
+      }
+    });
+
+    driver.findElement(By.className('downvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality) {
+      if(quality === 'genius') {
+        console.log('Test 11 failed');
+      } else if (quality === 'plausible'){
+        console.log('Test 11 passed');
+      }
+    });
+    driver.findElement(By.className('downvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality){
+      if(quality === 'plausible') {
+        console.log('Test 12 failed');
+      } else if (quality === 'swill') {
+        console.log('Test 12 passed');
+      }
+
+    })
+  });
+}
+
+function editTitleTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('heyoo');
+  driver.findElement(By.id('save-button')).click();
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('idea-title')).sendKeys('heyoooooo');
+    driver.sleep(3000);
+    driver.findElement(By.className('idea-title')).getText().then(function(title) {
+      if(title === 'heyooooooheyoo') {
+        console.log('Test 13 passed');
+      } else {
+        console.log('Test 13 failed');
+      }
+    });
+  });
+}
+
+
+function editBodyTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('body-input')).sendKeys('woowoo');
+  driver.findElement(By.id('save-button')).click();
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('idea-body')).sendKeys('heyhey');
+    driver.sleep(3000);
+    driver.findElement(By.className('idea-body')).getText().then(function(title) {
+      if(title === 'heyheywoowoo') {
+        console.log('Test 14 passed');
+      } else {
+        console.log('Test 14 failed');
+      }
+    });
+  });
+
+}
+
+
+function localStorageTest(driver) {
+  driver.get('https://buji405.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('rendering on page');
+  driver.findElement(By.id('body-input')).sendKeys('rendering on page');
+  driver.findElement(By.id('save-button')).click();
+
+  driver.sleep(3000).then(function() {
+    driver.findElement(By.className('upvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality){
+      if(quality === 'plausible') {
+        console.log('Test 15 Passed')
+      } else {
+        console.log('Test 15 Failed');
+      }
+
+      driver.navigate().refresh();
+      driver.findElement(By.className('current-quality')).getText().then(function(quality){
+        if(quality === 'plausible') {
+          console.log('Test 16 Passed')
+        } else {
+          console.log('Test 16 Failed');
+        }
+
+
+    });
+  })
+})
+
+  //   driver.findElement(By.className('downvote-button')).click();
+  //   driver.findElement(By.className('current-quality')).getText().then(function(quality) {
+  //     if(quality === 'genius') {
+  //       console.log('Test 11 failed');
+  //     } else if (quality === 'plausible'){
+  //       console.log('Test 11 passed');
+  //     }
+  //   });
+  //   driver.findElement(By.className('downvote-button')).click();
+  //   driver.findElement(By.className('current-quality')).getText().then(function(quality){
+  //     if(quality === 'plausible') {
+  //       console.log('Test 12 failed');
+  //     } else if (quality === 'swill') {
+  //       console.log('Test 12 passed');
+  //     }
+  //
+  //   })
+  // });
   driver.quit();
 }
