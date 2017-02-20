@@ -1,11 +1,11 @@
 $(function () {
   for (var i = 0; i < localStorage.length; i++){
-    var $storedIdeas = getStoredIdeas(localStorage.key(i));
-    prependIdeaBox($storedIdeas)
+    var $storedItems = getStoredItems(localStorage.key(i));
+    prependCard($storedItems)
   }
 })
 
-function getStoredIdeas (id) {
+function getStoredItems (id) {
   return JSON.parse(localStorage.getItem(id));
 }
 
@@ -14,32 +14,32 @@ $('#save-button').on('click', function() {
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
   var $quality = 'swill';
-  var $newIdea = new IdeaObject ($uniqId, $title, $body, $quality);
-  var $key = $newIdea.id;
-  localStorage.setItem($key, JSON.stringify($newIdea));
-  prependIdeaBox($newIdea);
+  var $newItem = new cardObject ($uniqId, $title, $body, $quality);
+  var $key = $newItem.id;
+  localStorage.setItem($key, JSON.stringify($newItem));
+  prependCard($newItem);
   resetInputs();
 })
 
-function IdeaObject (id, title, body, quality){
+function cardObject (id, title, body, quality){
   this.id = id;
   this.title = title;
   this.body = body;
   this.quality = quality;
 }
 
-function prependIdeaBox(ideaObj) {
+function prependCard(cardObj) {
   $('.prepend-container').prepend(
-    `<article class="card" id="${ideaObj.id}">
+    `<article class="card" id="${cardObj.id}">
       <button class="delete-button"></button>
       <section class="search-target">
-      <h2 class="idea-title" contenteditable>${ideaObj.title}</h2>
-      <p class="idea-body" contenteditable>${ideaObj.body}</p>
+      <h2 class="card-title" contenteditable>${cardObj.title}</h2>
+      <p class="card-body" contenteditable>${cardObj.body}</p>
       </section>
       <section class="quality">
         <button class="upvote-button"></button>
         <button class="downvote-button"></button>
-        <h3>quality: <span class="current-quality">${ideaObj.quality}</span></h3>
+        <h3>quality: <span class="current-quality">${cardObj.quality}</span></h3>
       </section>
     </article>
     `
@@ -70,9 +70,9 @@ $('.prepend-container').on('click','.upvote-button' , function() {
   }
   var $key = $(this).closest('.card').attr('id');
   var $updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem($key));
-  ideaBox.quality = $updatedQuality;
-  localStorage.setItem($key, JSON.stringify(ideaBox))
+  var parsedObj = JSON.parse(localStorage.getItem($key));
+  parsedObj.quality = $updatedQuality;
+  localStorage.setItem($key, JSON.stringify(parsedObj))
 })
 
 $('.prepend-container').on('click','.downvote-button', function() {
@@ -84,14 +84,14 @@ $('.prepend-container').on('click','.downvote-button', function() {
   }
   var $key = $(this).closest('.card').attr('id');
   var $updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem($key));
-  ideaBox.quality = $updatedQuality;
-  localStorage.setItem($key, JSON.stringify(ideaBox))
+  var parsedObj = JSON.parse(localStorage.getItem($key));
+  parsedObj.quality = $updatedQuality;
+  localStorage.setItem($key, JSON.stringify(parsedObj))
 })
 
-$('.prepend-container').on('focus', '.idea-title, .idea-body', function() {
+$('.prepend-container').on('focus', '.card-title, .card-body', function() {
   var $key = $(this).closest('.card').attr('id')
-  var ideabox = JSON.parse(localStorage.getItem($key));
+  var parsedObj = JSON.parse(localStorage.getItem($key));
   $(this).on('keydown', function(event) {
     if(event.keyCode === 13){
       event.preventDefault();
@@ -101,9 +101,9 @@ $('.prepend-container').on('focus', '.idea-title, .idea-body', function() {
   })
 
   $(this).on('blur', function() {
-    ideabox.title = $(this).closest('.card').find('.idea-title').text();
-    ideabox.body = $(this).closest('.card').find('.idea-body').text();
-    localStorage.setItem($key, JSON.stringify(ideabox));
+    parsedObj.title = $(this).closest('.card').find('.card-title').text();
+    parsedObj.body = $(this).closest('.card').find('.card-body').text();
+    localStorage.setItem($key, JSON.stringify(parsedObj));
   })
 })
 
