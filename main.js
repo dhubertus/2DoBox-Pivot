@@ -13,7 +13,7 @@ $('#save-button').on('click', function() {
   var $title = $('#title-input').val();
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
-  var $quality = 'swill';
+  var $quality = 'normal';
   var $newItem = new cardObject ($uniqId, $title, $body, $quality);
   var $key = $newItem.id;
   localStorage.setItem($key, JSON.stringify($newItem));
@@ -39,7 +39,7 @@ function prependCard(cardObj) {
       <section class="quality">
         <button class="upvote-button"></button>
         <button class="downvote-button"></button>
-        <h3>quality: <span class="current-quality">${cardObj.quality}</span></h3>
+        <h3>importance: <span class="current-quality">${cardObj.quality}</span></h3>
         <button class="completed-button">Done</button>
       </section>
     </article>
@@ -69,11 +69,16 @@ $('#title-input, #body-input').on('keyup', function(){
 
 $('.prepend-container').on('click','.upvote-button' , function() {
   var $currentQuality = $(this).closest('.card').find('.current-quality');
-  if ($currentQuality.text() === "swill") {
-    $currentQuality.text("plausible");
-  } else if ($currentQuality.text() === "plausible"){
-    $currentQuality.text("genius");
+  if ($currentQuality.text() === "none") {
+    $currentQuality.text("low");
+  } else if ($currentQuality.text() === "low"){
+    $currentQuality.text("normal");
+  } else if  ($currentQuality.text() === "normal"){
+    $currentQuality.text("high");
+  } else if ($currentQuality.text() === "high") {
+    $currentQuality.text("critical");
   }
+
   var $key = $(this).closest('.card').attr('id');
   var $updatedQuality = $currentQuality.text();
   var parsedObj = JSON.parse(localStorage.getItem($key));
@@ -83,10 +88,14 @@ $('.prepend-container').on('click','.upvote-button' , function() {
 
 $('.prepend-container').on('click','.downvote-button', function() {
   var $currentQuality = $(this).closest('.card').find('.current-quality');
-  if ($currentQuality.text() === "genius") {
-    $currentQuality.text("plausible");
-  } else if ($currentQuality.text() === "plausible"){
-    $currentQuality.text("swill");
+  if ($currentQuality.text() === "critical") {
+    $currentQuality.text("high");
+  } else if ($currentQuality.text() === "high"){
+    $currentQuality.text("normal");
+  } else if ($currentQuality.text() === "normal"){
+    $currentQuality.text("low");
+  } else if ($currentQuality.text() === "low"){
+    $currentQuality.text("none");
   }
   var $key = $(this).closest('.card').attr('id');
   var $updatedQuality = $currentQuality.text();
