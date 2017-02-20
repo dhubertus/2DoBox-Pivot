@@ -47,7 +47,6 @@ lsTitleTest(driver_chr);
 
 lsDeleteTest(driver_chr);
 
-
 function cardCreationTest(driver) {
   driver.get('https://buji405.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('hello');
@@ -380,4 +379,3 @@ function lsDeleteTest(driver) {
   });
     driver.quit();
 }
-
