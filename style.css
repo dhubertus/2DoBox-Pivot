@@ -3,6 +3,7 @@ body {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
+  min-width: 320px;
 }
 
 h1 {
@@ -148,6 +149,23 @@ p {
 
 .downvote-button:hover {
   background-position: -106px 0;
+}
+
+.completed-button {
+  border: 1px solid #6D6E71;
+  background: #adadad;
+  border-radius: 5px;
+  color: #FFF;
+  float: right;
+  font-size: 14px;
+}
+
+.completed-task {
+  background: #6D6E71;
+}
+
+.completed-task-background {
+  background: #F2F4F4;
 }
 
 h3 {

@@ -40,6 +40,7 @@ function prependCard(cardObj) {
         <button class="upvote-button"></button>
         <button class="downvote-button"></button>
         <h3>quality: <span class="current-quality">${cardObj.quality}</span></h3>
+        <button class="completed-button">Done</button>
       </section>
     </article>
     `
@@ -120,3 +121,9 @@ $('#search-input').on('keyup',function (){
     $(this).closest('.card').toggle($isAMatch);
   });
 });
+
+
+$('.prepend-container').on('click', '.completed-button', function(){
+  $(this).toggleClass('completed-task');
+  $(this).closest('.card').toggleClass('completed-task-background');
+})
