@@ -10,7 +10,7 @@ h1 {
   font-family: "Roboto Slab", serif;
 }
 
-.make-idea-teal {
+.title-color {
   color: #00A79D;
 }
 
@@ -73,7 +73,7 @@ input:focus {
   margin-top: 10px;
 }
 
-.idea-box-container {
+.prepend-container {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -150,7 +150,7 @@ p {
   background-position: -106px 0;
 }
 
-h3{
+h3 {
   color: #6D6E71;
   display: inline;
   font-family: "Roboto Slab", serif;

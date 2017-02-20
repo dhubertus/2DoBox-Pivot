@@ -15,8 +15,8 @@ $('#save-button').on('click', function() {
   var $uniqId = Date.now()
   var $quality = 'swill';
   var $newIdea = new IdeaObject ($uniqId, $title, $body, $quality);
-  var key = $newIdea.id;
-  localStorage.setItem(key, JSON.stringify($newIdea));
+  var $key = $newIdea.id;
+  localStorage.setItem($key, JSON.stringify($newIdea));
   prependIdeaBox($newIdea);
   resetInputs();
 })
@@ -29,8 +29,8 @@ function IdeaObject (id, title, body, quality){
 }
 
 function prependIdeaBox(ideaObj) {
-  $('.idea-box-container').prepend(
-    `<article class="idea-card" id="${ideaObj.id}">
+  $('.prepend-container').prepend(
+    `<article class="card" id="${ideaObj.id}">
       <button class="delete-button"></button>
       <section class="search-target">
       <h2 class="idea-title" contenteditable>${ideaObj.title}</h2>
@@ -46,10 +46,10 @@ function prependIdeaBox(ideaObj) {
   )
 }
 
-$('.idea-box-container').on('click', '.delete-button', (function() {
-  var selectId = $(this).parents('.idea-card').attr('id')
-  $(this).parents('.idea-card').remove()
-  localStorage.removeItem(selectId)
+$('.prepend-container').on('click', '.delete-button', (function() {
+  var $selectId = $(this).parents('.card').attr('id')
+  $(this).parents('.card').remove()
+  localStorage.removeItem($selectId)
 }))
 
 function resetInputs(){
@@ -61,37 +61,37 @@ $('#title-input, #body-input').on('keyup', function(){
   $('#save-button').prop('disabled', false);
 })
 
-$('.idea-box-container').on('click','.upvote-button' , function() {
-  var $currentQuality = $(this).closest('.idea-card').find('.current-quality');
+$('.prepend-container').on('click','.upvote-button' , function() {
+  var $currentQuality = $(this).closest('.card').find('.current-quality');
   if ($currentQuality.text() === "swill") {
     $currentQuality.text("plausible");
   } else if ($currentQuality.text() === "plausible"){
     $currentQuality.text("genius");
   }
-  var key = $(this).closest('.idea-card').attr('id');
-  var updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem(key));
-  ideaBox.quality = updatedQuality;
-  localStorage.setItem(key, JSON.stringify(ideaBox))
+  var $key = $(this).closest('.card').attr('id');
+  var $updatedQuality = $currentQuality.text();
+  var ideaBox = JSON.parse(localStorage.getItem($key));
+  ideaBox.quality = $updatedQuality;
+  localStorage.setItem($key, JSON.stringify(ideaBox))
 })
 
-$('.idea-box-container').on('click','.downvote-button', function() {
-  var $currentQuality = $(this).closest('.idea-card').find('.current-quality');
+$('.prepend-container').on('click','.downvote-button', function() {
+  var $currentQuality = $(this).closest('.card').find('.current-quality');
   if ($currentQuality.text() === "genius") {
     $currentQuality.text("plausible");
   } else if ($currentQuality.text() === "plausible"){
     $currentQuality.text("swill");
   }
-  var key = $(this).closest('.idea-card').attr('id');
-  var updatedQuality = $currentQuality.text();
-  var ideaBox = JSON.parse(localStorage.getItem(key));
-  ideaBox.quality = updatedQuality;
-  localStorage.setItem(key, JSON.stringify(ideaBox))
+  var $key = $(this).closest('.card').attr('id');
+  var $updatedQuality = $currentQuality.text();
+  var ideaBox = JSON.parse(localStorage.getItem($key));
+  ideaBox.quality = $updatedQuality;
+  localStorage.setItem($key, JSON.stringify(ideaBox))
 })
 
-$('.idea-box-container').on('focus', '.idea-title, .idea-body', function() {
-  var key = $(this).closest('.idea-card').attr('id')
-  var ideabox = JSON.parse(localStorage.getItem(key));
+$('.prepend-container').on('focus', '.idea-title, .idea-body', function() {
+  var $key = $(this).closest('.card').attr('id')
+  var ideabox = JSON.parse(localStorage.getItem($key));
   $(this).on('keydown', function(event) {
     if(event.keyCode === 13){
       event.preventDefault();
@@ -101,17 +101,17 @@ $('.idea-box-container').on('focus', '.idea-title, .idea-body', function() {
   })
 
   $(this).on('blur', function() {
-    ideabox.title = $(this).closest('.idea-card').find('.idea-title').text();
-    ideabox.body = $(this).closest('.idea-card').find('.idea-body').text();
-    localStorage.setItem(key, JSON.stringify(ideabox));
+    ideabox.title = $(this).closest('.card').find('.idea-title').text();
+    ideabox.body = $(this).closest('.card').find('.idea-body').text();
+    localStorage.setItem($key, JSON.stringify(ideabox));
   })
 })
 
 $('#search-input').on('keyup',function (){
-  var searchValue = $(this).val().toLowerCase();
+  var $searchValue = $(this).val().toLowerCase();
   $('.search-target').each(function(){
-    var text = $(this).text().toLowerCase();
-    var isAMatch = !!text.match(searchValue);
-    $(this).closest('.idea-card').toggle(isAMatch);
+    var $text = $(this).text().toLowerCase();
+    var $isAMatch = !!$text.match($searchValue);
+    $(this).closest('.card').toggle($isAMatch);
   });
 });
