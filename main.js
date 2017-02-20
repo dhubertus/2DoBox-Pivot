@@ -54,11 +54,16 @@ $('.prepend-container').on('click', '.delete-button', (function() {
 
 function resetInputs(){
   $('#title-input, #body-input').val("");
-  $('#save-button').prop('disabled', true);
 }
 
 $('#title-input, #body-input').on('keyup', function(){
-  $('#save-button').prop('disabled', false);
+ var $titleInput = $('#title-input');
+ var $bodyInput = $('#body-input');
+ if($titleInput.val() !== "" && $bodyInput.val() !== "") {
+   $('#save-button').prop('disabled', false);
+ } else {
+   $('#save-button').prop('disabled', true);
+ }
 })
 
 $('.prepend-container').on('click','.upvote-button' , function() {
