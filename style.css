@@ -179,6 +179,10 @@ p {
   border:none;
 }
 
+.filter-button-all {
+  background: #6D6E71;
+}
+
 .filter-button-critical {
   background: red;
 }

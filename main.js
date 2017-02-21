@@ -137,14 +137,15 @@ $('.prepend-container').on('click', '.completed-button', function(){
   $(this).closest('.card').toggleClass('completed-task-background');
 })
 
-// $('.filter-button-critical').on('click',function (){
-//   var $searchValue = $(this).val().toLowerCase();
-//   $('.current-quality').each(function(){
-//     var $text = $(this).text().toLowerCase();
-//     var $isAMatch = !!$text.match($searchValue);
-//     $(this).closest('.card').toggle($isAMatch);
-//   });
-// });
+$('.filter-button-all').on('click', function(){
+ var lookFor = '';
+ console.log(lookFor);
+ $('.card').each(function(index, element) {
+   var text = $(element).children().text().toLowerCase();
+   var match = !!text.match(lookFor);
+   $(element).toggle(match);
+ })
+})
 
 $('.filter-button-critical').on('click', function(){
  var lookFor = $(this).text().toLowerCase()
