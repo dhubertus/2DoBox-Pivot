@@ -168,6 +168,37 @@ p {
   background: #F2F4F4;
 }
 
+.filter-button-container {
+  display:flex;
+  justify-content: space-around;
+}
+
+.filter-button {
+  margin:10px;
+  color: #FFF;
+  border:none;
+}
+
+.filter-button-critical {
+  background: red;
+}
+
+.filter-button-high {
+  background: #ff8800;
+}
+
+.filter-button-normal {
+  background: #FABC05;
+}
+
+.filter-button-low {
+  background: blue;
+}
+
+.filter-button-none {
+  background: green;
+}
+
 h3 {
   color: #6D6E71;
   display: inline;
