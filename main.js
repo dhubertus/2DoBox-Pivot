@@ -2,8 +2,13 @@ $(function () {
   for (var i = 0; i < localStorage.length; i++){
     var $storedItems = getStoredItems(localStorage.key(i));
     prependCard($storedItems)
-    console.log($storedItems)
+
+    $('.completed-task-background').hide();
   }
+})
+
+$('.filter-button-done').on('click', function () {
+  $('.prepend-container').prepend($('.completed-task-background').show());
 })
 
 function getStoredItems (id) {

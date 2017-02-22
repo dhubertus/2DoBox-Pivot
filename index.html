@@ -22,13 +22,17 @@
     <section class="bottom-section">
       <input type="text" name="" value="" placeholder="Filter" class="input small-input" id="search-input">
       <section class="filter-button-container">
-        <button class="done">Done</button>
-        <button class="filter-button filter-button-all" type="button" name="button">Show All</button>
-        <button class="filter-button filter-button-critical" type="button" name="button">Critical</button>
+        <div class="filter-button-flex-top">
+          <button class="filter-button filter-button-done">Show Done</button>
+          <button class="filter-button filter-button-all" type="button" name="button">All</button>
+          <button class="filter-button filter-button-critical" type="button" name="button">Critical</button>
+        </div>
+        <div class="filter-button-flex-bottom">
         <button class="filter-button filter-button-high" type="button" name="button">High</button>
         <button class="filter-button filter-button-normal" type="button" name="button">Normal</button>
         <button class="filter-button filter-button-low" type="button" name="button">Low</button>
         <button class="filter-button filter-button-none" type="button" name="button">None</button>
+        </div>
     </section>
     </section>
 
