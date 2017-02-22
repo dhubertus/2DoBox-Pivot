@@ -2,7 +2,6 @@ $(function () {
   for (var i = 0; i < localStorage.length; i++){
     var $storedItems = getStoredItems(localStorage.key(i));
     prependCard($storedItems)
-
     $('.completed-task-background').hide();
   }
 })
@@ -26,6 +25,7 @@ $('#save-button').on('click', function() {
   localStorage.setItem($key, JSON.stringify($newItem));
   prependCard($newItem);
   resetInputs();
+  $('#save-button').prop('disabled', true);
 })
 
 function cardObject (id, title, body, quality, status){
@@ -164,46 +164,9 @@ $('.filter-button-all').on('click', function(){
  })
 })
 
-$('.filter-button-critical').on('click', function(){
+$('.filter-button-critical, .filter-button-high, .filter-button-normal, .filter-button-low, .filter-button-none').on('click', function(){
  var lookFor = $(this).text().toLowerCase()
  console.log(lookFor);
- $('.card').each(function(index, element) {
-   var text = $(element).children().text().toLowerCase();
-   var match = !!text.match(lookFor);
-   $(element).toggle(match);
- })
-})
-
-$('.filter-button-high').on('click', function(){
- var lookFor = $(this).text().toLowerCase()
- console.log(lookFor);
- $('.card').each(function(index, element) {
-   var text = $(element).children().text().toLowerCase();
-   var match = !!text.match(lookFor);
-   $(element).toggle(match);
- })
-})
-
-$('.filter-button-normal').on('click', function(){
- var lookFor = $(this).text().toLowerCase()
- $('.card').each(function(index, element) {
-   var text = $(element).children().text().toLowerCase();
-   var match = !!text.match(lookFor);
-   $(element).toggle(match);
- })
-})
-
-$('.filter-button-low').on('click', function(){
- var lookFor = $(this).text().toLowerCase()
- $('.card').each(function(index, element) {
-   var text = $(element).children().text().toLowerCase();
-   var match = !!text.match(lookFor);
-   $(element).toggle(match);
- })
-})
-
-$('.filter-button-none').on('click', function(){
- var lookFor = $(this).text().toLowerCase()
  $('.card').each(function(index, element) {
    var text = $(element).children().text().toLowerCase();
    var match = !!text.match(lookFor);
