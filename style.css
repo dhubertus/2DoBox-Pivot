@@ -178,9 +178,10 @@ p {
 }
 
 .filter-button {
-  margin:10px;
+  margin: 10px 5px ;
   color: #FFF;
   border:none;
+  border-radius: 5px;
 }
 
 .filter-button-all {
@@ -205,6 +206,13 @@ p {
 
 .filter-button-none {
   background: green;
+}
+
+.filter-button-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 h3 {
@@ -236,4 +244,37 @@ h3 {
     max-height: 200px;
     overflow: scroll;
   }
+
+  .filter-button-container {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+}
+
+@media screen and (min-width: 930px) {
+
+.filter-button-container {
+  display: flex;
+  width: 60%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.filter-button-flex-top {
+  display: flex;
+  width:50%;
+  justify-content: space-around;
+}
+
+.filter-button-flex-bottom {
+  display: flex;
+  width:50%;
+  justify-content: space-around;
+}
+
+
 }
