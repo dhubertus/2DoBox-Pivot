@@ -61,9 +61,12 @@ lsTitleTest(driver_chr);
 lsDeleteTest(driver_chr);
 // lsDeleteTest(driver_fx);
 
+completedTest(driver_chr);
+
 function cardCreationTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('hello');
+  driver.findElement(By.id('body-input')).sendKeys('body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
@@ -80,16 +83,15 @@ function cardCreationTest(driver) {
 function titleValueTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('hello');
-  driver.findElement(By.id('save-button')).click();
-  driver.findElement(By.id('title-input')).sendKeys('');
+  driver.findElement(By.id('body-input')).sendKeys('body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
     driver.findElement(By.className('card-title')).getText().then(function(title) {
-      if(title === '') {
-        console.log('Test 2 failed');
-      } else if (title === 'hello'){
+      if(title === 'hello') {
         console.log('Test 2 passed');
+      } else {
+        console.log('Test 2 failed');
       }
     });
   });
@@ -97,9 +99,8 @@ function titleValueTest(driver) {
 
 function bodyValueTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('hello');
   driver.findElement(By.id('body-input')).sendKeys('this is the body');
-  driver.findElement(By.id('save-button')).click();
-  driver.findElement(By.id('body-input')).sendKeys('');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
@@ -116,8 +117,10 @@ function bodyValueTest(driver) {
 function prependTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('First card');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('title-input')).sendKeys('Second card');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
@@ -134,8 +137,10 @@ function prependTest(driver) {
 function searchFilterTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Google');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('title-input')).sendKeys('Amazon');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('search-input')).sendKeys('Amazon');
 
@@ -153,8 +158,10 @@ function searchFilterTest(driver) {
 function deleteFromDOMTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Remaining card');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('title-input')).sendKeys('Card to be deleted');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
 
 
@@ -174,11 +181,12 @@ function deleteFromDOMTest(driver) {
 function upvoteTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Best idea yet');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
-      if(quality === 'swill') {
+      if(quality === 'normal') {
         console.log('Test 7 Passed')
       } else {
         console.log('Test 7 Failed');
@@ -186,17 +194,17 @@ function upvoteTest(driver) {
     })
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality) {
-      if(quality === 'swill') {
+      if(quality === 'normal') {
         console.log('Test 8 failed');
-      } else if (quality === 'plausible'){
+      } else if (quality === 'high'){
         console.log('Test 8 passed');
       }
     });
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
-      if(quality === 'plausible') {
+      if(quality === 'high') {
         console.log('Test 9 failed');
-      } else if (quality === 'genius') {
+      } else if (quality === 'critical') {
         console.log('Test 9 passed');
       }
     })
@@ -207,13 +215,14 @@ function upvoteTest(driver) {
 function downvoteTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Best idea yet');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
-      if(quality === 'genius') {
+      if(quality === 'critical') {
         console.log('Test 10 Passed')
       } else {
         console.log('Test 10 Failed');
@@ -222,26 +231,43 @@ function downvoteTest(driver) {
 
     driver.findElement(By.className('downvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality) {
-      if(quality === 'genius') {
+      if(quality === 'critical') {
         console.log('Test 11 failed');
-      } else if (quality === 'plausible'){
+      } else if (quality === 'high'){
         console.log('Test 11 passed');
       }
     });
     driver.findElement(By.className('downvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
-      if(quality === 'plausible') {
+      if(quality === 'high') {
         console.log('Test 12 failed');
-      } else if (quality === 'swill') {
+      } else if (quality === 'normal') {
         console.log('Test 12 passed');
       }
     })
+    driver.findElement(By.className('downvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality) {
+      if(quality === 'normal') {
+        console.log('Test 13 failed');
+      } else if (quality === 'low'){
+        console.log('Test 13 passed');
+      }
+    });
+    driver.findElement(By.className('downvote-button')).click();
+    driver.findElement(By.className('current-quality')).getText().then(function(quality) {
+      if(quality === 'low') {
+        console.log('Test 14 failed');
+      } else if (quality === 'none'){
+        console.log('Test 14 passed');
+      }
+    });
   });
 }
 
 function editTitleTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('heyoo');
+  driver.findElement(By.id('body-input')).sendKeys('this is the body');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
@@ -249,9 +275,9 @@ function editTitleTest(driver) {
     driver.sleep(3000);
     driver.findElement(By.className('card-title')).getText().then(function(title) {
       if(title === 'heyooooooheyoo') {
-        console.log('Test 13 passed');
+        console.log('Test 15 passed');
       } else {
-        console.log('Test 13 failed');
+        console.log('Test 15 failed');
       }
     });
   });
@@ -260,6 +286,7 @@ function editTitleTest(driver) {
 
 function editBodyTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('heyoo');
   driver.findElement(By.id('body-input')).sendKeys('woowoo');
   driver.findElement(By.id('save-button')).click();
 
@@ -268,9 +295,9 @@ function editBodyTest(driver) {
     driver.sleep(3000);
     driver.findElement(By.className('card-body')).getText().then(function(title) {
       if(title === 'heyheywoowoo') {
-        console.log('Test 14 passed');
+        console.log('Test 16 passed');
       } else {
-        console.log('Test 14 failed');
+        console.log('Test 16 failed');
       }
     });
   });
@@ -287,20 +314,20 @@ function lsUpVote(driver) {
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
 console.log(quality);
-      if(quality === 'plausible') {
-        console.log('Test 15 Passed')
+      if(quality === 'high') {
+        console.log('Test 17 Passed')
       } else {
-        console.log('Test 15 Failed');
+        console.log('Test 17 Failed');
       }
 
       driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
       driver.sleep(3000);
       driver.findElement(By.className('current-quality')).getText().then(function(quality){
         console.log(quality);
-        if(quality === 'plausible') {
-          console.log('Test 16 Passed')
+        if(quality === 'high') {
+          console.log('Test 18 Passed')
         } else {
-          console.log('Test 16 Failed');
+          console.log('Test 18 Failed');
         }
     });
   })
@@ -317,18 +344,18 @@ function lsDownVote(driver) {
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('upvote-button')).click();
     driver.findElement(By.className('current-quality')).getText().then(function(quality){
-      if(quality === 'genius') {
-        console.log('Test 17 Passed')
+      if(quality === 'critical') {
+        console.log('Test 19 Passed')
       } else {
-        console.log('Test 17 Failed');
+        console.log('Test 19 Failed');
       }
       driver.findElement(By.className('downvote-button')).click();
       driver.navigate().refresh();
       driver.findElement(By.className('current-quality')).getText().then(function(quality){
-        if(quality === 'plausible') {
-          console.log('Test 18 Passed')
+        if(quality === 'high') {
+          console.log('Test 20 Passed')
         } else {
-          console.log('Test 18 Failed');
+          console.log('Test 20 Failed');
         }
     });
   })
@@ -337,6 +364,7 @@ function lsDownVote(driver) {
 
 function lsBodyTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
+  driver.findElement(By.id('title-input')).sendKeys('heyoo');
   driver.findElement(By.id('body-input')).sendKeys('woowoo');
   driver.findElement(By.id('save-button')).click();
 
@@ -347,9 +375,9 @@ function lsBodyTest(driver) {
     driver.sleep(3000);
     driver.findElement(By.className('card-body')).getText().then(function(title) {
       if(title === 'heyheywoowoo') {
-        console.log('Test 19 passed');
+        console.log('Test 21 passed');
       } else {
-        console.log('Test 19 failed');
+        console.log('Test 21 failed');
       }
     });
   });
@@ -358,6 +386,7 @@ function lsBodyTest(driver) {
 function lsTitleTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('woowoo');
+  driver.findElement(By.id('body-input')).sendKeys('woowoo');
   driver.findElement(By.id('save-button')).click();
 
   driver.sleep(3000).then(function() {
@@ -367,9 +396,9 @@ function lsTitleTest(driver) {
     driver.sleep(3000);
     driver.findElement(By.className('card-title')).getText().then(function(title) {
       if(title === 'heyheywoowoo') {
-        console.log('Test 20 passed');
+        console.log('Test 22 passed');
       } else {
-        console.log('Test 20 failed');
+        console.log('Test 22 failed');
       }
     });
   });
@@ -378,8 +407,10 @@ function lsTitleTest(driver) {
 function lsDeleteTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('Remaining card');
+  driver.findElement(By.id('body-input')).sendKeys('woowoo');
   driver.findElement(By.id('save-button')).click();
   driver.findElement(By.id('title-input')).sendKeys('Card to be deleted');
+  driver.findElement(By.id('body-input')).sendKeys('woowoo');
   driver.findElement(By.id('save-button')).click();
 
 
@@ -388,11 +419,33 @@ function lsDeleteTest(driver) {
     driver.navigate().refresh();
     driver.findElement(By.className('card-title')).getText().then(function(title) {
       if(title === 'Card to be deleted') {
-        console.log('Test 21 failed');
+        console.log('Test 23 failed');
       } else if (title === 'Remaining card'){
-        console.log('Test 21 passed');
+        console.log('Test 23 passed');
       }
     });
   });
-    driver.quit();
 }
+
+  function completedTest(driver) {
+    driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
+    driver.findElement(By.id('title-input')).sendKeys('Go to the store');
+    driver.findElement(By.id('body-input')).sendKeys('this is the body');
+    driver.findElement(By.id('save-button')).click();
+
+    driver.sleep(2000).then(function() {
+      driver.findElement(By.className('completed-button')).click();
+      driver.sleep(2000);
+      driver.findElement(By.className('filter-button-done')).click();
+
+      driver.findElement(By.className('card-title')).getText().then(function(title) {
+        if(title === 'Go to the store') {
+          console.log('Test 24 passed');
+        } else {
+          console.log('Test 24 failed');
+
+        }
+      });
+    });
+    driver.quit();
+  }
