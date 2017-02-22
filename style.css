@@ -47,6 +47,10 @@ input:focus {
     outline: 3px solid #C7C7CD;
 }
 
+.done {
+  background: blue;
+}
+
 #save-button {
   background-color: #00A79D;
   border: none;
