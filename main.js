@@ -2,6 +2,7 @@ $(function () {
   for (var i = 0; i < localStorage.length; i++){
     var $storedItems = getStoredItems(localStorage.key(i));
     prependCard($storedItems)
+    console.log($storedItems)
   }
 })
 
@@ -14,23 +15,25 @@ $('#save-button').on('click', function() {
   var $body = $('#body-input').val();
   var $uniqId = Date.now()
   var $quality = 'normal';
-  var $newItem = new cardObject ($uniqId, $title, $body, $quality);
+  var $status = ''
+  var $newItem = new cardObject ($uniqId, $title, $body, $quality, $status);
   var $key = $newItem.id;
   localStorage.setItem($key, JSON.stringify($newItem));
   prependCard($newItem);
   resetInputs();
 })
 
-function cardObject (id, title, body, quality){
+function cardObject (id, title, body, quality, status){
   this.id = id;
   this.title = title;
   this.body = body;
   this.quality = quality;
+  this.status = status;
 }
 
 function prependCard(cardObj) {
   $('.prepend-container').prepend(
-    `<article class="card" id="${cardObj.id}">
+    `<article class="card ${cardObj.status}" id="${cardObj.id}">
       <button class="delete-button"></button>
       <section class="search-target">
       <h2 class="card-title" contenteditable>${cardObj.title}</h2>
@@ -131,10 +134,19 @@ $('#search-input').on('keyup',function (){
   });
 });
 
-
 $('.prepend-container').on('click', '.completed-button', function(){
-  $(this).toggleClass('completed-task');
-  $(this).closest('.card').toggleClass('completed-task-background');
+  var $key = $(this).closest('.card').attr('id');
+  var parsedObj = JSON.parse(localStorage.getItem($key));
+
+  if ($(this).closest('.card').hasClass('completed-task-background')) {
+    parsedObj.status = '';
+    localStorage.setItem($key, JSON.stringify(parsedObj))
+    $(this).closest('.card').toggleClass('completed-task-background');
+  } else {
+    parsedObj.status = 'completed-task-background';
+    localStorage.setItem($key, JSON.stringify(parsedObj))
+    $(this).closest('.card').toggleClass('completed-task-background');
+  }
 })
 
 $('.filter-button-all').on('click', function(){
@@ -169,7 +181,6 @@ $('.filter-button-high').on('click', function(){
 
 $('.filter-button-normal').on('click', function(){
  var lookFor = $(this).text().toLowerCase()
- console.log(lookFor);
  $('.card').each(function(index, element) {
    var text = $(element).children().text().toLowerCase();
    var match = !!text.match(lookFor);
@@ -179,7 +190,6 @@ $('.filter-button-normal').on('click', function(){
 
 $('.filter-button-low').on('click', function(){
  var lookFor = $(this).text().toLowerCase()
- console.log(lookFor);
  $('.card').each(function(index, element) {
    var text = $(element).children().text().toLowerCase();
    var match = !!text.match(lookFor);
@@ -189,7 +199,6 @@ $('.filter-button-low').on('click', function(){
 
 $('.filter-button-none').on('click', function(){
  var lookFor = $(this).text().toLowerCase()
- console.log(lookFor);
  $('.card').each(function(index, element) {
    var text = $(element).children().text().toLowerCase();
    var match = !!text.match(lookFor);
