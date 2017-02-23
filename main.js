@@ -1,15 +1,13 @@
 $(function () {
-  // var cardArray = [];
+  
   for (var i = 0; i < localStorage.length; i++){
     var $storedItems = getStoredItems(localStorage.key(i));
 
     prependCard($storedItems)
     $('.completed-task-background').hide();
 
-    $('article').slice(10).hide();
+    $('article:visible').slice(10).hide();
 
-    // cardArray.push($storedItems);
-    // console.log(cardArray);
     }
   })
 
@@ -39,7 +37,8 @@ $('#save-button').on('click', function() {
   localStorage.setItem($key, JSON.stringify($newItem));
   prependCard($newItem);
   resetInputs();
-  $('article').slice(10).hide();
+  $('.completed-task-background').hide();
+  $('article:visible').slice(10).hide();
   $('#save-button').prop('disabled', true);
 })
 
@@ -184,10 +183,11 @@ $('.filter-button-critical, .filter-button-high, .filter-button-normal, .filter-
  var lookFor = $(this).text().toLowerCase()
  console.log(lookFor);
  $('.card').each(function(index, element) {
-   var text = $(element).children().text().toLowerCase();
+   var text = $(element).find('.current-quality').text().toLowerCase();
    var match = !!text.match(lookFor);
    $(element).toggle(match);
  })
+
  $('.completed-task-background').hide();
- $('article').slice(10).hide();
+ $('article:visible').slice(10).hide();
 })
