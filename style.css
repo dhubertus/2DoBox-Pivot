@@ -6,6 +6,13 @@ body {
   min-width: 320px;
 }
 
+.top-section {
+  align-items: center;
+  background-color: #E5F3F2;
+  display: flex;
+  flex-direction: column;
+}
+
 h1 {
   color: #6D6E71;
   font-family: "Roboto Slab", serif;
@@ -13,13 +20,6 @@ h1 {
 
 .title-color {
   color: #00A79D;
-}
-
-.top-section {
-  align-items: center;
-  background-color: #E5F3F2;
-  display: flex;
-  flex-direction: column;
 }
 
 .input {
@@ -45,10 +45,6 @@ textarea {
 textarea:focus,
 input:focus {
     outline: 3px solid #C7C7CD;
-}
-
-.done {
-  background: blue;
 }
 
 #save-button {
@@ -78,103 +74,12 @@ input:focus {
   margin-top: 10px;
 }
 
-.prepend-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  position: relative;
-}
-
-article {
-  border-bottom: 2px solid #D1D3D4;
-  margin-top: 15px;
-  min-height: 100px;
-  padding-left: 5px;
-  width: 80%;
-}
-
-h2 {
-  color: #6D6E71;
-  display: inline;
-  font-family: "Roboto Slab", serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  margin-top: 0;
-}
-
-p {
-  color: #939598;
-  font-size: 18px;
-}
-
-.delete-button,
-.downvote-button,
-.upvote-button {
-  background: url('images/sprite.png') no-repeat top left;
-  border: none;
-  height: 20px;
-  margin-bottom: 15px;
-  width: 20px;
-}
-
-.delete-button {
-  background-position: 0 0;
-  display: inline;
-  float: right;
-  right: 5px;
-  top: 5px;
-}
-
-.delete-button:hover {
-  background-position: -21px 0;
-}
-
-.delete-button:focus,
-.upvote-button:focus,
-.downvote-button:focus {
-  outline: none;
-}
-
-.upvote-button {
-  background-position: -42px 0;
-  margin-right: 5px;
-}
-
-.upvote-button:hover {
-  background-position: -63px 0;
-}
-
-.downvote-button {
-  background-position: -85px 0;
-  margin-right: 10px;
-}
-
-.downvote-button:hover {
-  background-position: -106px 0;
-}
-
-.completed-button {
-  border: 1px solid #6D6E71;
-  background: #adadad;
-  border-radius: 5px;
-  color: #FFF;
-  float: right;
-  font-size: 14px;
-}
-
-.completed-task {
-  background: #6D6E71;
-}
-
-.completed-task-background {
-  background: #F2F4F4;
-}
-
 .filter-button-container {
-  display:flex;
+  display: flex;
+  width: 100%;
   justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }
 
 .filter-button {
@@ -183,6 +88,10 @@ p {
   border:none;
   border-radius: 5px;
   padding:3px 7px;
+}
+
+.filter-button-done {
+  background: #00A79D;
 }
 
 .filter-button-all {
@@ -209,15 +118,83 @@ p {
   background: green;
 }
 
-.filter-button-done {
-  background: #00A79D;
+.prepend-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  position: relative;
 }
 
-.filter-button-container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
+/*Start of prepend card*/
+
+article {
+  border-bottom: 2px solid #D1D3D4;
+  margin-top: 15px;
+  min-height: 100px;
+  padding-left: 5px;
+  width: 80%;
+}
+
+.delete-button {
+  background-position: 0 0;
+  display: inline;
+  float: right;
+  right: 5px;
+  top: 5px;
+}
+
+.delete-button:hover {
+  background-position: -21px 0;
+}
+
+h2 {
+  color: #6D6E71;
+  display: inline;
+  font-family: "Roboto Slab", serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+p {
+  color: #939598;
+  font-size: 18px;
+}
+
+.upvote-button {
+  background-position: -42px 0;
+  margin-right: 5px;
+}
+
+.upvote-button:hover {
+  background-position: -63px 0;
+}
+
+.downvote-button {
+  background-position: -85px 0;
+  margin-right: 10px;
+}
+
+.downvote-button:hover {
+  background-position: -106px 0;
+}
+
+.delete-button,
+.downvote-button,
+.upvote-button {
+  background: url('images/sprite.png') no-repeat top left;
+  border: none;
+  height: 20px;
+  margin-bottom: 15px;
+  width: 20px;
+}
+
+.delete-button:focus,
+.upvote-button:focus,
+.downvote-button:focus {
+  outline: none;
 }
 
 h3 {
@@ -228,7 +205,22 @@ h3 {
   font-weight: 500;
 }
 
-.expand-button {
+.completed-button {
+  border: 1px solid #6D6E71;
+  background: #adadad;
+  border-radius: 5px;
+  color: #FFF;
+  float: right;
+  font-size: 14px;
+}
+
+.completed-task-background {
+  background: #F2F4F4;
+}
+
+/*End of prepend card */
+
+.expand-button-container {
   display:flex;
   justify-content: center;
   margin-top: 10px;
@@ -256,11 +248,6 @@ h3 {
     height: 28px;
   }
 
-  article {
-    max-height: 200px;
-    overflow: scroll;
-  }
-
   .filter-button-container {
     display: flex;
     width: 60%;
@@ -269,28 +256,30 @@ h3 {
   }
 
 
+  article {
+    max-height: 200px;
+    overflow: scroll;
+  }
 }
 
 @media screen and (min-width: 930px) {
 
-.filter-button-container {
-  display: flex;
-  width: 60%;
-  flex-direction: row;
-  align-items: center;
-}
+  .filter-button-container {
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+    align-items: center;
+  }
 
-.filter-button-flex-top {
-  display: flex;
-  width:50%;
-  justify-content: space-around;
-}
+  .filter-button-flex-top {
+    display: flex;
+    width:50%;
+    justify-content: space-around;
+  }
 
-.filter-button-flex-bottom {
-  display: flex;
-  width:50%;
-  justify-content: space-around;
-}
-
-
+  .filter-button-flex-bottom {
+    display: flex;
+    width:50%;
+    justify-content: space-around;
+  }
 }
