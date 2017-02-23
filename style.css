@@ -208,6 +208,10 @@ p {
   background: green;
 }
 
+.filter-button-done {
+  background: #00A79D;
+}
+
 .filter-button-container {
   display: flex;
   width: 100%;
@@ -221,6 +225,16 @@ h3 {
   font-family: "Roboto Slab", serif;
   font-size: 14px;
   font-weight: 500;
+}
+
+.expand-button {
+  display:flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.expand {
+  border: 2px solid #6D6E71;
 }
 
 @media screen and (min-width: 640px){
