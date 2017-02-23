@@ -63,6 +63,8 @@ lsDeleteTest(driver_chr);
 
 completedTest(driver_chr);
 
+lsCriticalFilter(driver_chr);
+
 function cardCreationTest(driver) {
   driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
   driver.findElement(By.id('title-input')).sendKeys('hello');
@@ -447,5 +449,33 @@ function lsDeleteTest(driver) {
         }
       });
     });
-    driver.quit();
+  }
+
+  function lsCriticalFilter(driver) {
+    driver.get('https://dhubertus.github.io/2DoBox-Pivot/');
+    driver.findElement(By.id('title-input')).sendKeys('rendering on page');
+    driver.findElement(By.id('body-input')).sendKeys('rendering on page');
+    driver.findElement(By.id('save-button')).click();
+
+    driver.sleep(3000).then(function() {
+      driver.findElement(By.className('upvote-button')).click();
+      driver.findElement(By.className('upvote-button')).click();
+      driver.findElement(By.className('filter-button-critical')).click();
+
+      driver.findElement(By.className('card-title')).getText().then(function(title) {
+        if(title === 'rendering on page') {
+          console.log('Test 25 passed');
+        } else {
+          console.log('Test 25 failed');
+        }
+
+      driver.findElement(By.className('current-quality')).getText().then(function(quality){
+        if(quality === 'critical') {
+          console.log('Test 26 Passed')
+        } else {
+          console.log('Test 26 Failed');
+        }
+      });
+    })
+  })
   }
